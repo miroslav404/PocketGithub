@@ -1,6 +1,7 @@
 package com.trollologic.pocketgithub.search;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.databinding.SearchResultItemBinding;
+import com.trollologic.pocketgithub.models.SearchItem;
+import com.trollologic.pocketgithub.models.responses.SearchResults;
 
 /**
  * Created by miroslav on 02.02.17..
@@ -16,17 +19,19 @@ import com.trollologic.pocketgithub.databinding.SearchResultItemBinding;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     private final Context context;
-    private String[] mDataset;
+    private SearchItem[] mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public SearchResultItemBinding binding;
         public ViewHolder(View v) {
             super(v);
+            binding = DataBindingUtil.bind(v);
+
         }
     }
 
-    public ResultAdapter(Context context, String[] myDataset) {
-        mDataset = myDataset;
+    public ResultAdapter(Context context, SearchItem[] mDataset) {
+        this.mDataset = mDataset;
         this.context = context;
     }
 
@@ -40,7 +45,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.binding.setOwner(mDataset[position].getOwner());
+        holder.binding.setRepo(mDataset[position]);
     }
 
     @Override

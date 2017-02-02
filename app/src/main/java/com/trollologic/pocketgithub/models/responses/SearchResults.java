@@ -1,5 +1,7 @@
 package com.trollologic.pocketgithub.models.responses;
 
+import com.trollologic.pocketgithub.models.SearchItem;
+
 /**
  * Created by miroslav on 02.02.17..
  */
@@ -9,23 +11,22 @@ public class SearchResults {
     int total_count;
     SearchItem[] items;
 
-    public class SearchItem {
-        long id;
-        String name;
-        String full_name;
-        int watchers_count;
-        int open_issues_count;
-        int forks_count;
-        Owner owner;
-        String updated_at;
+    public int getTotal_count() {
+        return total_count;
     }
 
-
-    public class Owner{
-        long id;
-        String avatar_url;
-        String login;
+    public void setTotal_count(int total_count) {
+        this.total_count = total_count;
     }
+
+    public SearchItem[] getItems() {
+        return items;
+    }
+
+    public void setItems(SearchItem[] items) {
+        this.items = items;
+    }
+
     /*
     "total_count": 2,
   "incomplete_results": false,

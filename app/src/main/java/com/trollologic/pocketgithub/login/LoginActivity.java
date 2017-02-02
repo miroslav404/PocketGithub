@@ -1,11 +1,8 @@
 package com.trollologic.pocketgithub.login;
 
 import android.content.Context;
-import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.trollologic.pocketgithub.R;

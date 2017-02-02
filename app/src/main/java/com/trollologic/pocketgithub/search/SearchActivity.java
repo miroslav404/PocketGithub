@@ -4,13 +4,15 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
+import com.trollologic.pocketgithub.models.SearchItem;
+import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.utils.Constants;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
@@ -20,6 +22,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     private SearchPresenter presenter;
     private String sort = Constants.SORT_BY_UPDATED;
     private String order = Constants.ORDER_ASC;
+    private SearchItem[] searchResult;
+    private ResultAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void renderView() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         presenter = new SearchPresenter(this);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        binding.resultRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        binding.resultRecyclerView.setLayoutManager(mLayoutManager);
+
     }
 
     @Override
@@ -73,5 +82,22 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void updateResultList(SearchResults items) {
+        if(searchResult == null){
+            // specify an adapter (see also next example)
+            searchResult = items.getItems();
+            mAdapter = new ResultAdapter(this, searchResult);
+            binding.resultRecyclerView.setAdapter(mAdapter);
+        }else {
+            searchResult = items.getItems();
+        }
+    }
+
+    @Override
+    public ResultAdapter getAdapter() {
+        return mAdapter;
     }
 }

@@ -37,7 +37,11 @@ public class SearchPresenter implements BasePresenter {
         Subscription sub = Service.getRepositories(callType, query, sort, order, token, new ServiceCallbacks.SearchCallback() {
             @Override
             public void onSuccess(SearchResults response) {
-
+                if(view.getAdapter() == null) {
+                    view.updateResultList(response);
+                }else {
+                    view.getAdapter().notifyDataSetChanged();
+                }
             }
 
             @Override
