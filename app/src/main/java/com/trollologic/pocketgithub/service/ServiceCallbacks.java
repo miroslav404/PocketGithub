@@ -2,6 +2,7 @@ package com.trollologic.pocketgithub.service;
 
 import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.models.responses.Contributor;
+import com.trollologic.pocketgithub.models.responses.SearchResults;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class ServiceCallbacks {
 
     public interface AuthorizationCallback{
         void onSuccess(Authorization response);
+
+        void onError(NetworkError networkError);
+    }
+
+    public interface SearchCallback {
+        void onSuccess(SearchResults response);
 
         void onError(NetworkError networkError);
     }

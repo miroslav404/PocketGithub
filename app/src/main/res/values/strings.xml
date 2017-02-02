@@ -14,4 +14,9 @@
         completions."
     </string>
     <string name="skip">Skip</string>
+    <string name="search">Search</string>
+    <string name="search_repositories">Search repositories</string>
+    <string name="stars">Stars</string>
+    <string name="forks">Forks</string>
+    <string name="updated">Updated</string>
 </resources>

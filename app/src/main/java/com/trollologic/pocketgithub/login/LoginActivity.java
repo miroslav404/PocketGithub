@@ -67,5 +67,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public Context getContext() {
         return this;
     }
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
 }
 

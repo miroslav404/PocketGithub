@@ -6,10 +6,12 @@ import android.content.Intent;
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
+import com.trollologic.pocketgithub.search.SearchActivity;
 import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
 import com.trollologic.pocketgithub.service.Service;
 import com.trollologic.pocketgithub.service.ServiceCallbacks;
+import com.trollologic.pocketgithub.utils.SharedPrefUtils;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -37,6 +39,8 @@ public class LoginPresenter implements BasePresenter {
             @Override
             public void onSuccess(Authorization response) {
                 view.dismissProgress();
+                SharedPrefUtils.setToken(view.getContext(), response.getToken());
+                goToSearchScreen();
             }
 
             @Override
@@ -60,6 +64,12 @@ public class LoginPresenter implements BasePresenter {
     }
 
     public void skipLogin() {
+        SharedPrefUtils.setToken(view.getContext(), null);
+        goToSearchScreen();
+    }
 
+    private void goToSearchScreen() {
+        view.getContext().startActivity(new Intent(view.getContext(), SearchActivity.class));
+        view.finishActivity();
     }
 }

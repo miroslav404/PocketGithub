@@ -1,3 +1,4 @@
+
 package com.trollologic.pocketgithub.base;
 
 import android.content.Context;

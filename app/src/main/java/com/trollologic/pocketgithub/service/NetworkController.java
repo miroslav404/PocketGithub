@@ -1,13 +1,9 @@
 package com.trollologic.pocketgithub.service;
 
 import android.support.annotation.NonNull;
-import android.util.Base64;
-
-import com.trollologic.pocketgithub.BuildConfig;
-import com.trollologic.pocketgithub.models.User;
+import android.support.compat.BuildConfig;
 
 import java.io.IOException;
-
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,7 +60,7 @@ public class NetworkController {
                 .build();
 
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASEURL)
+                .baseUrl(com.trollologic.pocketgithub.BuildConfig.BASEURL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
@@ -93,7 +89,7 @@ public class NetworkController {
                 Request request = original.newBuilder()
                         .header(CONTENT_TYPE, APPLICATION_JSON)
                         .removeHeader(PRAGMA)
-                        .header(CACHE_CONTROL, String.format("max-age=%d", BuildConfig.CACHETIME))
+                        .header(CACHE_CONTROL, String.format("max-age=%d", com.trollologic.pocketgithub.BuildConfig.CACHETIME))
                         .build();
 
                 return chain.proceed(request);
@@ -112,7 +108,7 @@ public class NetworkController {
                         .header(CONTENT_TYPE, APPLICATION_JSON)
                         .removeHeader(PRAGMA)
                         .addHeader(AUTHORIZATION, "token "+ token)
-                        .header(CACHE_CONTROL, String.format("max-age=%d", BuildConfig.CACHETIME))
+                        .header(CACHE_CONTROL, String.format("max-age=%d", com.trollologic.pocketgithub.BuildConfig.CACHETIME))
                         .build();
 
                 return chain.proceed(request);
