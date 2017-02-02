@@ -36,12 +36,12 @@ public class LoginPresenter implements BasePresenter {
 
             @Override
             public void onSuccess(Authorization response) {
-
+                view.dismissProgress();
             }
 
             @Override
             public void onError(NetworkError networkError) {
-
+                view.showFailureMessage(networkError.getMessage());
             }
         });
         subscriptions.add(sub);

@@ -8,5 +8,4 @@ import com.trollologic.pocketgithub.base.BaseView;
 
 public interface LoginView extends BaseView {
 
-    void loginSuccess();
 }
