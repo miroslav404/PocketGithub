@@ -18,26 +18,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             card_view:cardCornerRadius="4dp"
-            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/material_8_dp"
+            android:layout_marginRight="@dimen/material_8_dp"
+            android:layout_marginTop="@dimen/material_4_dp"
+            android:layout_marginBottom="@dimen/material_4_dp"
+
             >
 
             <LinearLayout
                 android:layout_margin="@dimen/activity_vertical_margin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-            <TextView
-                android:id="@+id/repo_name"
-                tools:text="repo"
-                android:text="@{repo.name}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/repo_owner"
-                tools:text="owner"
-                android:text="@{owner.login}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/owner_avatar"
+                        android:layout_width="@dimen/material_56_dp"
+                        android:layout_height="@dimen/material_56_dp"
+                        tools:src="@drawable/ic_search_white_24dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/colorPrimary"/>
+                    <TextView
+                        android:layout_marginLeft="@dimen/material_8_dp"
+                        android:id="@+id/repo_owner"
+                        tools:text="owner"
+                        android:text="@{owner.login}"
+                        android:textSize="@dimen/big_text_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/repo_name"
+                    tools:text="repo"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="@dimen/big_text_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/repo_forks"
+                    tools:text="repo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/repo_watchers"
+                    tools:text="repo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/repo_issues"
+                    tools:text="repo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

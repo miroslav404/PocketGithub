@@ -8,10 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.databinding.SearchResultItemBinding;
+import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
+
+import java.util.List;
 
 /**
  * Created by miroslav on 02.02.17..
@@ -19,7 +23,7 @@ import com.trollologic.pocketgithub.models.responses.SearchResults;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     private final Context context;
-    private SearchItem[] mDataset;
+    private List<SearchItem> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public SearchResultItemBinding binding;
@@ -30,7 +34,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         }
     }
 
-    public ResultAdapter(Context context, SearchItem[] mDataset) {
+    public ResultAdapter(Context context, List<SearchItem> mDataset) {
         this.mDataset = mDataset;
         this.context = context;
     }
@@ -45,13 +49,23 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.binding.setOwner(mDataset[position].getOwner());
-        holder.binding.setRepo(mDataset[position]);
+        SearchItem item = mDataset.get(position);
+        holder.binding.setOwner(item.getOwner());
+        holder.binding.setRepo(item);
+        Picasso.with(context).load(item.getOwner().getAvatar_url()).into(holder.binding.ownerAvatar);
+        holder.binding.repoName.setText(context.getString(R.string.two_strings_with_colon,
+                context.getString(R.string.repository), item.getName()));
+        holder.binding.repoForks.setText(context.getString(R.string.two_strings_with_colon,
+                context.getString(R.string.fork_count), String.valueOf(item.getForks_count())));
+        holder.binding.repoWatchers.setText(context.getString(R.string.two_strings_with_colon,
+                context.getString(R.string.watchers_count), String.valueOf(item.getWatchers_count())));
+        holder.binding.repoIssues.setText(context.getString(R.string.two_strings_with_colon,
+                context.getString(R.string.open_issues_count), String.valueOf(item.getOpen_issues_count())));
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }
 

@@ -19,4 +19,8 @@
     <string name="stars">Stars</string>
     <string name="forks">Forks</string>
     <string name="updated">Updated</string>
+    <string name="repository">Repository</string>
+    <string name="fork_count">Forks count</string>
+    <string name="watchers_count">Watchers count</string>
+    <string name="open_issues_count">Open issues count</string>
 </resources>

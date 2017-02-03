@@ -15,6 +15,10 @@ import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.utils.Constants;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
@@ -22,7 +26,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     private SearchPresenter presenter;
     private String sort = Constants.SORT_BY_UPDATED;
     private String order = Constants.ORDER_ASC;
-    private SearchItem[] searchResult;
+    private List<SearchItem> searchResult;
     private ResultAdapter mAdapter;
 
     @Override
@@ -88,11 +92,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     public void updateResultList(SearchResults items) {
         if(searchResult == null){
             // specify an adapter (see also next example)
-            searchResult = items.getItems();
+            searchResult = new ArrayList<>();
+            searchResult.addAll(Arrays.asList(items.getItems()));
             mAdapter = new ResultAdapter(this, searchResult);
             binding.resultRecyclerView.setAdapter(mAdapter);
         }else {
-            searchResult = items.getItems();
+            searchResult.clear();
+            searchResult.addAll(Arrays.asList(items.getItems()));
         }
     }
 
