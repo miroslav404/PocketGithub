@@ -13,23 +13,30 @@
         tools:context="com.trollologic.pocketgithub.search.SearchActivity">
 
         <RadioGroup
+            android:id="@+id/filterGroup"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
+                android:id="@+id/stars"
                 android:text="@string/stars"
                 android:layout_weight="0.5"
                 android:layout_width="0dp"
+                android:onClick="onFilterAction"
                 android:layout_height="wrap_content" />
             <RadioButton
+                android:id="@+id/forks"
                 android:text="@string/forks"
                 android:layout_weight="0.5"
                 android:layout_width="0dp"
+                android:onClick="onFilterAction"
                 android:layout_height="wrap_content" />
             <RadioButton
+                android:id="@+id/updated"
                 android:text="@string/updated"
                 android:layout_weight="0.5"
                 android:layout_width="0dp"
+                android:onClick="onFilterAction"
                 android:layout_height="wrap_content" />
         </RadioGroup>
         <android.support.v7.widget.RecyclerView

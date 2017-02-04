@@ -60,9 +60,9 @@ public class Service {
 
 
     public static Subscription getRepositories(NetworkController.CallType type, String query, String sort, String order,
-                                               String token, final ServiceCallbacks.SearchCallback callback) {
+                                               String token, int page, final ServiceCallbacks.SearchCallback callback) {
 
-        return NetworkController.provideCall(type, token).searchRepositories(query, sort, order)
+        return NetworkController.provideCall(type, token).searchRepositories(query, sort, order, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends SearchResults>>() {

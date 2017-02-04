@@ -5,29 +5,37 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.RadioGroup;
 
 import com.trollologic.pocketgithub.R;
+import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.utils.Constants;
+import com.trollologic.pocketgithub.utils.EndlessRecyclerViewScrollListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
+public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
+    private static final int START_PAGE = 1;
     private ActivitySearchBinding binding;
     private SearchPresenter presenter;
-    private String sort = Constants.SORT_BY_UPDATED;
+    private String sort = Constants.SORT_BY_STARTS;
     private String order = Constants.ORDER_ASC;
     private List<SearchItem> searchResult;
     private ResultAdapter mAdapter;
+    private String lastQuery;
+    private EndlessRecyclerViewScrollListener paginator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +46,51 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     private void renderView() {
         presenter = new SearchPresenter(this);
+        prepareAdapter();
+        prepareFilterListener();
+    }
 
+    private void prepareFilterListener() {
+        binding.stars.setChecked(true);
+        binding.filterGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.updated:
+                        sort = Constants.SORT_BY_UPDATED;
+                        break;
+                    case R.id.forks:
+                        sort = Constants.SORT_BY_FORKS;
+                        break;
+                    default:
+                        sort = Constants.SORT_BY_STARTS;
+                        break;
+                }
+            }
+        });
+    }
+
+    private void prepareAdapter() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.resultRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         binding.resultRecyclerView.setLayoutManager(mLayoutManager);
+        searchResult = new ArrayList<>();
+        mAdapter = new ResultAdapter(this, searchResult);
+        binding.resultRecyclerView.setAdapter(mAdapter);
 
+        createPaginationListener(mLayoutManager);
+        binding.resultRecyclerView.addOnScrollListener(paginator);
+    }
+
+    private void createPaginationListener(final LinearLayoutManager mLayoutManager) {
+        paginator = new EndlessRecyclerViewScrollListener(mLayoutManager) {
+
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                presenter.search(lastQuery, sort, order, page+ START_PAGE);
+            }
+        };
     }
 
     @Override
@@ -59,7 +106,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        presenter.search(query, sort, order);
+        searchResult.clear();
+        paginator.resetState();
+        lastQuery = query;
+        presenter.search(query, sort, order, START_PAGE);
         return false;
     }
 
@@ -80,7 +130,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public void showFailureMessage(String message) {
-
+        showSnackBar(binding.getRoot(), message);
     }
 
     @Override
@@ -90,20 +140,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public void updateResultList(SearchResults items) {
-        if(searchResult == null){
-            // specify an adapter (see also next example)
-            searchResult = new ArrayList<>();
-            searchResult.addAll(Arrays.asList(items.getItems()));
-            mAdapter = new ResultAdapter(this, searchResult);
-            binding.resultRecyclerView.setAdapter(mAdapter);
-        }else {
-            searchResult.clear();
-            searchResult.addAll(Arrays.asList(items.getItems()));
-        }
+        searchResult.addAll(Arrays.asList(items.getItems()));
     }
 
     @Override
     public ResultAdapter getAdapter() {
         return mAdapter;
     }
+
+
 }

@@ -30,11 +30,13 @@ public class SearchPresenter implements BasePresenter {
         this.subscriptions = new CompositeSubscription();
     }
 
-    public void search(String query, String sort, String order) {
+    public void search(String query, String sort, String order, int page) {
         view.onProgress();
         String token = SharedPrefUtils.getToken(view.getContext());
-        NetworkController.CallType callType = token == null ? NetworkController.CallType.NO_AUTH : NetworkController.CallType.TOKEN;
-        Subscription sub = Service.getRepositories(callType, query, sort, order, token, new ServiceCallbacks.SearchCallback() {
+        NetworkController.CallType callType = token == null ?
+                NetworkController.CallType.NO_AUTH : NetworkController.CallType.TOKEN;
+        Subscription sub = Service.getRepositories(callType, query, sort, order, token, page,
+                new ServiceCallbacks.SearchCallback() {
             @Override
             public void onSuccess(SearchResults response) {
                     view.updateResultList(response);
@@ -45,7 +47,7 @@ public class SearchPresenter implements BasePresenter {
 
             @Override
             public void onError(NetworkError networkError) {
-
+                view.showFailureMessage(networkError.getMessage());
             }
         });
         subscriptions.add(sub);
