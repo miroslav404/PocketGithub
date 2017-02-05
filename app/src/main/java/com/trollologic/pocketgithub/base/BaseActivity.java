@@ -1,8 +1,15 @@
 package com.trollologic.pocketgithub.base;
 
+import android.databinding.DataBindingUtil;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.squareup.picasso.Picasso;
+import com.trollologic.pocketgithub.R;
+import com.trollologic.pocketgithub.databinding.CustomUserIconActionBarBinding;
+import com.trollologic.pocketgithub.models.responses.GithubUser;
 
 /**
  * Created by miroslav on 02.02.17..
@@ -14,5 +21,24 @@ public class BaseActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar
                 .make(parentLayout, message, Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+    public void updateUserIcon(BasePresenter presenter, GithubUser user) {
+        ActionBarClickListeners handler = new ActionBarClickListeners(presenter);
+        View actionBarLayout = getLayoutInflater().inflate(R.layout.custom_user_icon_action_bar, null);
+        CustomUserIconActionBarBinding binding = DataBindingUtil.bind(actionBarLayout);
+
+        binding.setUser(user);
+        binding.setHandler(handler);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setCustomView(binding.getRoot());
+
+        Picasso.with(this).load(user.getAvatar_url())
+                .placeholder(R.drawable.ic_fingerprint_black_24dp)
+                .into(binding.actionBarIcon);
     }
 }

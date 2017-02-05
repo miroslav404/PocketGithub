@@ -1,6 +1,7 @@
 package com.trollologic.pocketgithub.search;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.login.LoginView;
@@ -77,6 +78,11 @@ public class SearchPresenter implements BasePresenter {
 
     public void onStop() {
         subscriptions.unsubscribe();
+    }
+
+    @Override
+    public void actionBarClick(GithubUser user) {
+        Log.i(TAG, "open user profile");
     }
 
 

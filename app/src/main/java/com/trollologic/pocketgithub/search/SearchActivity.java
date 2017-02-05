@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.squareup.picasso.Picasso;
@@ -21,6 +23,7 @@ import com.squareup.picasso.Target;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
+import com.trollologic.pocketgithub.databinding.CustomUserIconActionBarBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
@@ -30,6 +33,8 @@ import com.trollologic.pocketgithub.utils.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
 
@@ -58,10 +63,6 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         prepareFilterListener();
     }
 
-    private void updateUserIcon(String url) {
-
-    }
-
     private void prepareFilterListener() {
         binding.stars.setChecked(true);
         binding.filterGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -70,13 +71,17 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
                 switch (checkedId){
                     case R.id.updated:
                         sort = Constants.SORT_BY_UPDATED;
+                        makeNewSearch();
                         break;
                     case R.id.forks:
                         sort = Constants.SORT_BY_FORKS;
+                        makeNewSearch();
                         break;
                     default:
                         sort = Constants.SORT_BY_STARTS;
+                        makeNewSearch();
                         break;
+
                 }
             }
         });
@@ -118,11 +123,17 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        searchResult.clear();
-        paginator.resetState();
         lastQuery = query;
-        presenter.search(query, sort, order, START_PAGE);
+        makeNewSearch();
         return false;
+    }
+
+    private void makeNewSearch() {
+        if(!TextUtils.isEmpty(lastQuery)) {
+            searchResult.clear();
+            paginator.resetState();
+            presenter.search(lastQuery, sort, order, START_PAGE);
+        }
     }
 
     @Override
@@ -162,7 +173,8 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public void updateUserInfo(GithubUser user) {
-        updateUserIcon(user.getAvatar_url());
+        updateUserIcon(presenter, user);
+
     }
 
 

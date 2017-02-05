@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
+import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.search.SearchActivity;
 import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
@@ -55,6 +56,11 @@ public class LoginPresenter implements BasePresenter {
 
     public void onStop() {
         subscriptions.unsubscribe();
+    }
+
+    @Override
+    public void actionBarClick(GithubUser user) {
+
     }
 
 
