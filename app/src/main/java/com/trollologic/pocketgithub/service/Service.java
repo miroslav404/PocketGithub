@@ -5,6 +5,7 @@ import android.util.Log;
 import com.trollologic.pocketgithub.models.requests.AuthorizationRequest;
 import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.models.responses.Contributor;
+import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 
 import java.util.List;
@@ -86,6 +87,39 @@ public class Service {
 
                     @Override
                     public void onNext(SearchResults results) {
+                        Log.i(TAG, "onNext");
+                        callback.onSuccess(results);
+                    }
+
+                });
+    }
+
+    public static Subscription getUserInfo(NetworkController.CallType type, String token, final ServiceCallbacks.UserCallback callback) {
+
+        return NetworkController.provideCall(type, token).getUserInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends GithubUser>>() {
+                    @Override
+                    public Observable<? extends GithubUser> call(Throwable throwable) {
+                        return Observable.error(throwable);
+                    }
+                })
+                .subscribe(new Subscriber<GithubUser>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.i(TAG, "onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onError(new NetworkError(e));
+                        Log.i(TAG, "onError");
+
+                    }
+
+                    @Override
+                    public void onNext(GithubUser results) {
                         Log.i(TAG, "onNext");
                         callback.onSuccess(results);
                     }

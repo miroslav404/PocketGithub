@@ -6,6 +6,7 @@ import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.login.LoginView;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
+import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
@@ -53,7 +54,26 @@ public class SearchPresenter implements BasePresenter {
         subscriptions.add(sub);
     }
 
+    public void getUserInfo(){
+        String token = SharedPrefUtils.getToken(view.getContext());
+        if(token != null) {
+            NetworkController.CallType callType = token == null ?
+                    NetworkController.CallType.NO_AUTH : NetworkController.CallType.TOKEN;
+            Subscription sub = Service.getUserInfo(callType, token,
+                    new ServiceCallbacks.UserCallback() {
+                        @Override
+                        public void onSuccess(GithubUser response) {
+                            view.updateUserInfo(response);
+                        }
 
+                        @Override
+                        public void onError(NetworkError networkError) {
+                            view.showFailureMessage(networkError.getMessage());
+                        }
+                    });
+            subscriptions.add(sub);
+        }
+    }
 
     public void onStop() {
         subscriptions.unsubscribe();

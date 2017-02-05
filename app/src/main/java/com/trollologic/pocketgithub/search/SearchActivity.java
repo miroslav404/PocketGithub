@@ -2,6 +2,10 @@ package com.trollologic.pocketgithub.search;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +16,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.RadioGroup;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
+import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.utils.Constants;
 import com.trollologic.pocketgithub.utils.EndlessRecyclerViewScrollListener;
@@ -46,8 +53,13 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     private void renderView() {
         presenter = new SearchPresenter(this);
+        presenter.getUserInfo();
         prepareAdapter();
         prepareFilterListener();
+    }
+
+    private void updateUserIcon(String url) {
+
     }
 
     private void prepareFilterListener() {
@@ -146,6 +158,11 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @Override
     public ResultAdapter getAdapter() {
         return mAdapter;
+    }
+
+    @Override
+    public void updateUserInfo(GithubUser user) {
+        updateUserIcon(user.getAvatar_url());
     }
 
 

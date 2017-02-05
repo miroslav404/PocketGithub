@@ -1,6 +1,7 @@
 package com.trollologic.pocketgithub.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivityLoginBinding;
 import com.trollologic.pocketgithub.models.User;
+import com.trollologic.pocketgithub.search.SearchActivity;
+import com.trollologic.pocketgithub.utils.SharedPrefUtils;
 
 import rx.subscriptions.CompositeSubscription;
 
@@ -24,7 +27,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        renderView();
+        if(SharedPrefUtils.getToken(this) == null) {
+            renderView();
+        }else{
+            startActivity(new Intent(this, SearchActivity.class));
+            finish();
+        }
 
     }
 
