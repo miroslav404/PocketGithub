@@ -1,0 +1,116 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="repository"
+            type="com.trollologic.pocketgithub.models.SearchItem"/>
+
+        <variable name="handler"
+            type="com.trollologic.pocketgithub.base.ActionBarClickListeners"/>
+    </data>
+    <RelativeLayout
+        android:id="@+id/activity_repo_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.trollologic.pocketgithub.repo_details.RepoDetailsActivity">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/action_bar_icon"
+            android:layout_marginLeft="@dimen/material_8_dp"
+            android:layout_marginRight="@dimen/material_8_dp"
+            android:layout_width="@dimen/material_36_dp"
+            android:layout_height="@dimen/material_36_dp"
+            app:civ_border_width="1dp"
+            app:civ_fill_color="@android:color/white"
+            app:civ_border_color="@color/colorPrimary"
+            tools:src="@drawable/ic_fingerprint_black_24dp"
+            android:onClick="@{() -> handler.openUserProfile(repository.owner)}"
+            />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_alignBottom="@id/action_bar_icon"
+            android:layout_alignTop="@id/action_bar_icon"
+            android:layout_toRightOf="@id/action_bar_icon"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/big_text_size"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            android:text="@{repository.full_name}"/>
+
+        <TextView
+            tools:text="dededede"
+
+            android:id="@+id/language"
+            android:layout_marginTop="@dimen/material_8_dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/action_bar_icon"
+            android:layout_width="match_parent"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            tools:text="dededede"
+
+            android:id="@+id/stars"
+            android:layout_marginTop="@dimen/material_8_dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/language"
+            android:layout_width="match_parent"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            tools:text="dededede"
+
+            android:id="@+id/issues"
+            android:layout_marginTop="@dimen/material_8_dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/stars"
+            android:layout_width="match_parent"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            tools:text="dededede"
+            android:id="@+id/pull_request"
+            android:layout_marginTop="@dimen/material_8_dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/issues"
+            android:layout_width="match_parent"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            tools:text="dededede"
+            android:id="@+id/default_branch"
+            android:layout_marginTop="@dimen/material_8_dp"
+            android:gravity="center_vertical"
+            android:layout_below="@id/pull_request"
+            android:layout_width="match_parent"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check_repository"/>
+
+
+    </RelativeLayout>
+</layout>

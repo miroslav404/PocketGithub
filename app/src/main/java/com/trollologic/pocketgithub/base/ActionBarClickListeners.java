@@ -1,6 +1,7 @@
 package com.trollologic.pocketgithub.base;
 
 import com.trollologic.pocketgithub.login.LoginPresenter;
+import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 
@@ -18,7 +19,7 @@ public class ActionBarClickListeners {
     }
 
 
-    public void openUserProfile(GithubUser user){
+    public void openUserProfile(Owner user){
         presenter.actionBarClick(user);
     }
 

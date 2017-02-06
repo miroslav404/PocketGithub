@@ -1,5 +1,6 @@
 package com.trollologic.pocketgithub.base;
 
+import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 
 /**
@@ -12,6 +13,6 @@ public interface BasePresenter {
 
     void onStop();
 
-    void actionBarClick(GithubUser user);
+    void actionBarClick(Owner user);
 
 }

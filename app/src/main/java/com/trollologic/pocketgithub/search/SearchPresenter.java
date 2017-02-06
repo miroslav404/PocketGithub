@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.login.LoginView;
+import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
@@ -81,7 +82,7 @@ public class SearchPresenter implements BasePresenter {
     }
 
     @Override
-    public void actionBarClick(GithubUser user) {
+    public void actionBarClick(Owner user) {
         Log.i(TAG, "open user profile");
     }
 
