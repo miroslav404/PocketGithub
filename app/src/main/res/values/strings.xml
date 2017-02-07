@@ -23,5 +23,5 @@
     <string name="fork_count">Forks count</string>
     <string name="watchers_count">Watchers count</string>
     <string name="open_issues_count">Open issues count</string>
-    <string name="check_repository">Check repository</string>
+    <string name="check_repository_details">Check repository details</string>
 </resources>

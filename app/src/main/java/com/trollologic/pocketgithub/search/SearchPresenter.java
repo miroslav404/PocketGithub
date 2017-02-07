@@ -6,14 +6,17 @@ import android.util.Log;
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.login.LoginView;
 import com.trollologic.pocketgithub.models.Owner;
+import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
+import com.trollologic.pocketgithub.repo_details.RepoDetailsActivity;
 import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
 import com.trollologic.pocketgithub.service.Service;
 import com.trollologic.pocketgithub.service.ServiceCallbacks;
+import com.trollologic.pocketgithub.utils.Constants;
 import com.trollologic.pocketgithub.utils.SharedPrefUtils;
 
 import rx.Subscription;
@@ -90,6 +93,12 @@ public class SearchPresenter implements BasePresenter {
     @Override
     public void onStart() {
 
+    }
+
+    public void openRepoDetails(SearchItem item){
+        Intent intent = new Intent(view.getContext(), RepoDetailsActivity.class);
+        intent.putExtra(Constants.REPO_DETAILS, item);
+        view.getContext().startActivity(intent);
     }
 
 }

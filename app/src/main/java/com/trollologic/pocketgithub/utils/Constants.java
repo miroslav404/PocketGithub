@@ -12,4 +12,5 @@ public class Constants {
     public static final String ORDER_ASC = "asc";
     public static final String ORDER_DESC = "desc";
 
+    public static final String REPO_DETAILS = "REPO_DETAILS";
 }

@@ -23,6 +23,8 @@ import java.util.List;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     private final Context context;
+    //private final SearchPresenter presenter;
+    private final SearchClickListeners searchClickListener;
     private List<SearchItem> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,9 +36,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         }
     }
 
-    public ResultAdapter(Context context, List<SearchItem> mDataset) {
+    public ResultAdapter(Context context, List<SearchItem> mDataset, SearchPresenter presenter) {
         this.mDataset = mDataset;
         this.context = context;
+        //this.presenter = presenter;
+        searchClickListener = new SearchClickListeners(presenter);
     }
 
     // Create new views (invoked by the layout manager)
@@ -52,6 +56,8 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         SearchItem item = mDataset.get(position);
         holder.binding.setOwner(item.getOwner());
         holder.binding.setRepo(item);
+        holder.binding.setHandler(searchClickListener);
+
         Picasso.with(context).load(item.getOwner().getAvatar_url()).into(holder.binding.ownerAvatar);
         holder.binding.repoName.setText(context.getString(R.string.two_strings_with_colon,
                 context.getString(R.string.repository), item.getName()));

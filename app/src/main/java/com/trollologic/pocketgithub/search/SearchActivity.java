@@ -93,7 +93,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         binding.resultRecyclerView.setLayoutManager(mLayoutManager);
         searchResult = new ArrayList<>();
-        mAdapter = new ResultAdapter(this, searchResult);
+        mAdapter = new ResultAdapter(this, searchResult, presenter);
         binding.resultRecyclerView.setAdapter(mAdapter);
 
         createPaginationListener(mLayoutManager);

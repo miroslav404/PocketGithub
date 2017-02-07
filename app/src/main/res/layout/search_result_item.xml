@@ -6,6 +6,8 @@
 
         <variable name="owner"
             type="com.trollologic.pocketgithub.models.Owner"/>
+        <variable name="handler"
+            type="com.trollologic.pocketgithub.search.SearchClickListeners"/>
     </data>
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -22,6 +24,7 @@
             android:layout_marginRight="@dimen/material_8_dp"
             android:layout_marginTop="@dimen/material_4_dp"
             android:layout_marginBottom="@dimen/material_4_dp"
+            android:onClick="@{() -> handler.onRepoClick(repo)}"
 
             >
 
