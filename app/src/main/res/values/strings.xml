@@ -24,4 +24,9 @@
     <string name="watchers_count">Watchers count</string>
     <string name="open_issues_count">Open issues count</string>
     <string name="check_repository_details">Check repository details</string>
+    <string name="language">Language</string>
+    <string name="default_branch">Default branch</string>
+    <string name="description">Description</string>
+
+    <string name="default_value_for_not_valide_value">Not known!</string>
 </resources>

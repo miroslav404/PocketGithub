@@ -11,6 +11,7 @@ import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivityRepoDetailsBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.utils.Constants;
+import com.trollologic.pocketgithub.utils.ValueHelper;
 
 public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView {
 
@@ -32,12 +33,15 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
                 .placeholder(R.drawable.ic_fingerprint_black_24dp)
                 .into(binding.repoAvatar);
 
-        binding.defaultBranch.setText(getString(R.string.two_strings_with_colon,
-                "Default branch", repository.getDefault_branch()));
         binding.language.setText(getString(R.string.two_strings_with_colon,
-                "Language", repository.getLanguage()));
+                getString(R.string.language), ValueHelper.isValid(this, repository.getLanguage())));
         binding.issues.setText(getString(R.string.two_strings_with_colon,
-                "Open issues", String.valueOf(repository.getOpen_issues())));
+                getString(R.string.open_issues_count), String.valueOf(repository.getOpen_issues())));
+        binding.defaultBranch.setText(getString(R.string.two_strings_with_colon,
+                getString(R.string.default_branch), ValueHelper.isValid(this, repository.getDefault_branch())));
+        binding.description.setText(getString(R.string.two_strings_with_colon,
+                getString(R.string.description), ValueHelper.isValid(this, repository.getDescription())));
+
     }
 
     @Override

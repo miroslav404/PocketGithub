@@ -44,8 +44,6 @@
             android:text="@{repository.full_name}"/>
 
         <TextView
-            tools:text="dededede"
-
             android:id="@+id/language"
             android:layout_marginTop="@dimen/material_8_dp"
             android:gravity="center_vertical"
@@ -55,10 +53,9 @@
             android:ellipsize="end"
             android:layout_height="wrap_content"
             />
-        <TextView
-            tools:text="dededede"
 
-            android:id="@+id/stars"
+        <TextView
+            android:id="@+id/issues"
             android:layout_marginTop="@dimen/material_8_dp"
             android:gravity="center_vertical"
             android:layout_below="@id/language"
@@ -69,21 +66,7 @@
             />
 
         <TextView
-            tools:text="dededede"
-
-            android:id="@+id/issues"
-            android:layout_marginTop="@dimen/material_8_dp"
-            android:gravity="center_vertical"
-            android:layout_below="@id/stars"
-            android:layout_width="match_parent"
-            android:lines="1"
-            android:ellipsize="end"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            tools:text="dededede"
-            android:id="@+id/pull_request"
+            android:id="@+id/default_branch"
             android:layout_marginTop="@dimen/material_8_dp"
             android:gravity="center_vertical"
             android:layout_below="@id/issues"
@@ -94,11 +77,10 @@
             />
 
         <TextView
-            tools:text="dededede"
-            android:id="@+id/default_branch"
+            android:id="@+id/description"
             android:layout_marginTop="@dimen/material_8_dp"
             android:gravity="center_vertical"
-            android:layout_below="@id/pull_request"
+            android:layout_below="@id/default_branch"
             android:layout_width="match_parent"
             android:lines="1"
             android:ellipsize="end"
