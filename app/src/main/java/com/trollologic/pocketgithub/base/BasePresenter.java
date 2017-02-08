@@ -13,6 +13,6 @@ public interface BasePresenter {
 
     void onStop();
 
-    void actionBarClick(Owner user);
+    void userProfileClick(Owner user);
 
 }

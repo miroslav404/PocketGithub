@@ -5,7 +5,7 @@
         <variable name="user"
             type="com.trollologic.pocketgithub.models.responses.GithubUser"/>
         <variable name="handler"
-            type="com.trollologic.pocketgithub.base.ActionBarClickListeners"/>
+            type="com.trollologic.pocketgithub.base.BaseClickListeners"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

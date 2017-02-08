@@ -60,7 +60,7 @@ public class LoginPresenter implements BasePresenter {
     }
 
     @Override
-    public void actionBarClick(Owner user) {
+    public void userProfileClick(Owner user) {
 
     }
 

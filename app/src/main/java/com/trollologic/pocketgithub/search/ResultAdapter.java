@@ -36,6 +36,11 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         }
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     public ResultAdapter(Context context, List<SearchItem> mDataset, SearchPresenter presenter) {
         this.mDataset = mDataset;
         this.context = context;

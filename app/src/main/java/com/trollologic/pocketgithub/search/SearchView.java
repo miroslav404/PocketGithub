@@ -1,5 +1,7 @@
 package com.trollologic.pocketgithub.search;
 
+import android.app.FragmentManager;
+
 import com.trollologic.pocketgithub.base.BaseView;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
@@ -15,5 +17,7 @@ public interface SearchView extends BaseView {
     ResultAdapter getAdapter();
 
     void updateUserInfo(GithubUser user);
+
+    FragmentManager getFragmentManager();
 
 }

@@ -3,7 +3,9 @@ package com.trollologic.pocketgithub.search;
 import android.content.Intent;
 import android.util.Log;
 
+import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BasePresenter;
+import com.trollologic.pocketgithub.base.UserProfileFragment;
 import com.trollologic.pocketgithub.login.LoginView;
 import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.SearchItem;
@@ -12,6 +14,7 @@ import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.repo_details.RepoDetailsActivity;
+import com.trollologic.pocketgithub.repo_details.RepoWebViewFragment;
 import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
 import com.trollologic.pocketgithub.service.Service;
@@ -85,8 +88,10 @@ public class SearchPresenter implements BasePresenter {
     }
 
     @Override
-    public void actionBarClick(Owner user) {
-        Log.i(TAG, "open user profile");
+    public void userProfileClick(Owner user) {
+        UserProfileFragment fragment = UserProfileFragment.newInstance(user.getHtml_url());
+        view.getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment).addToBackStack(UserProfileFragment.getFragmentTag()).commit();
     }
 
 

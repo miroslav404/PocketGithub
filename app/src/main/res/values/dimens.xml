@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="material_96_dp">96dp</dimen>
     <dimen name="material_56_dp">56dp</dimen>
     <dimen name="material_36_dp">36dp</dimen>
     <dimen name="material_8_dp">8dp</dimen>

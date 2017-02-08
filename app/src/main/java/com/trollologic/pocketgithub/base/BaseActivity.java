@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void updateUserIcon(BasePresenter presenter, GithubUser user) {
-        ActionBarClickListeners handler = new ActionBarClickListeners(presenter);
+        BaseClickListeners handler = new BaseClickListeners(presenter);
         View actionBarLayout = getLayoutInflater().inflate(R.layout.custom_user_icon_action_bar, null);
         CustomUserIconActionBarBinding binding = DataBindingUtil.bind(actionBarLayout);
 

@@ -1,16 +1,19 @@
 package com.trollologic.pocketgithub.search;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
+import com.trollologic.pocketgithub.base.OnFragmentInteractionListener;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
 import com.trollologic.pocketgithub.databinding.CustomUserIconActionBarBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
@@ -36,7 +40,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView {
+public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView, OnFragmentInteractionListener {
 
     private static final String TAG = SearchActivity.class.getSimpleName();
     private static final int START_PAGE = 1;
@@ -95,7 +99,6 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         searchResult = new ArrayList<>();
         mAdapter = new ResultAdapter(this, searchResult, presenter);
         binding.resultRecyclerView.setAdapter(mAdapter);
-
         createPaginationListener(mLayoutManager);
         binding.resultRecyclerView.addOnScrollListener(paginator);
     }
@@ -174,8 +177,15 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @Override
     public void updateUserInfo(GithubUser user) {
         updateUserIcon(presenter, user);
-
     }
 
+    @Override
+    public FragmentManager getFragmentManager() {
+        return super.getFragmentManager();
+    }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
