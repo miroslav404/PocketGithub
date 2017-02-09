@@ -10,8 +10,8 @@ import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 import com.trollologic.pocketgithub.repo_details.RepoDetailsActivity;
+import com.trollologic.pocketgithub.service.ErrorResponse;
 import com.trollologic.pocketgithub.service.NetworkController;
-import com.trollologic.pocketgithub.service.NetworkError;
 import com.trollologic.pocketgithub.service.Service;
 import com.trollologic.pocketgithub.service.ServiceCallbacks;
 import com.trollologic.pocketgithub.utils.Constants;
@@ -48,8 +48,8 @@ public class SearchPresenter implements BasePresenter {
                     }
 
                     @Override
-                    public void onError(NetworkError networkError) {
-                        view.showFailureMessage(networkError.getMessage());
+                    public void onError(ErrorResponse error) {
+                        view.showFailureMessage(error.getMessage());
                         view.dismissProgress();
 
                     }
@@ -70,8 +70,8 @@ public class SearchPresenter implements BasePresenter {
                         }
 
                         @Override
-                        public void onError(NetworkError networkError) {
-                            view.showFailureMessage(networkError.getMessage());
+                        public void onError(ErrorResponse error) {
+                            view.showFailureMessage(error.getMessage());
                         }
                     });
             subscriptions.add(sub);

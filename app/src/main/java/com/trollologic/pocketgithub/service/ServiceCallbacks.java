@@ -16,24 +16,24 @@ public class ServiceCallbacks {
     public interface ContributorsCallback{
         void onSuccess(List<Contributor> response);
 
-        void onError(NetworkError networkError);
+        void onError(ErrorResponse networkError);
     }
 
     public interface AuthorizationCallback{
         void onSuccess(Authorization response);
 
-        void onError(NetworkError networkError);
+        void onError(ErrorResponse networkError);
     }
 
     public interface SearchCallback {
         void onSuccess(SearchResults response);
 
-        void onError(NetworkError networkError);
+        void onError(ErrorResponse networkError);
     }
 
     public interface UserCallback {
         void onSuccess(GithubUser response);
 
-        void onError(NetworkError networkError);
+        void onError(ErrorResponse networkError);
     }
 }

@@ -8,8 +8,13 @@ import com.trollologic.pocketgithub.models.responses.Contributor;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -46,8 +51,7 @@ public class Service {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(new NetworkError(e));
-                        Log.i(TAG, "onError");
+                        callback.onError(parseErrorMsg(e));
 
                     }
 
@@ -81,8 +85,7 @@ public class Service {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(new NetworkError(e));
-                        Log.i(TAG, "onError");
+                        callback.onError(parseErrorMsg(e));
 
                     }
 
@@ -114,8 +117,7 @@ public class Service {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(new NetworkError(e));
-                        Log.i(TAG, "onError");
+                        callback.onError(parseErrorMsg(e));
 
                     }
 
@@ -148,8 +150,7 @@ public class Service {
 
                     @Override
                     public void onError(Throwable e) {
-                        callback.onError(new NetworkError(e));
-                        Log.i(TAG, "onError");
+                        callback.onError(parseErrorMsg(e));
 
                     }
 
@@ -160,5 +161,19 @@ public class Service {
                     }
 
                 });
+    }
+
+    private static ErrorResponse parseErrorMsg(Throwable e) {
+        if(e instanceof HttpException) {
+            Converter<ResponseBody, ErrorResponse> errorConverter =
+                    NetworkController.getRetrofit().responseBodyConverter(ErrorResponse.class, new Annotation[0]);
+            try {
+                return errorConverter.convert(((HttpException) e).response().errorBody());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return new ErrorResponse(e.getMessage());
+            }
+        }
+        return new ErrorResponse(e.getMessage());
     }
 }

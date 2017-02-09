@@ -34,7 +34,7 @@ public class NetworkController {
 
     private static GitHubService service;
     private static GitHubService authService;
-
+    private static Retrofit retrofit;
 
     /**
      * Check if service exists, and create new if not
@@ -47,18 +47,24 @@ public class NetworkController {
         switch (type){
             case CREDENTIALS:
                 if(authService == null) {
-                    authService = getRetrofit(CallType.CREDENTIALS, token).create(GitHubService.class);
+                    retrofit = getRetrofit(CallType.CREDENTIALS, token);
+                    authService = retrofit.create(GitHubService.class);
                 }
                 currentService = authService;
                 break;
             default:
                 if(service == null){
-                    service = getRetrofit(type, token).create(GitHubService.class);
+                    retrofit = getRetrofit(type, token);
+                    service = retrofit.create(GitHubService.class);
                 }
                 currentService = service;
                 break;
         }
         return currentService;
+    }
+
+    public static Retrofit getRetrofit(){
+        return retrofit;
     }
 
     @NonNull

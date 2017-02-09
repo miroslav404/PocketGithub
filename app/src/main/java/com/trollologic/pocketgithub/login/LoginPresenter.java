@@ -7,7 +7,7 @@ import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
 import com.trollologic.pocketgithub.search.SearchActivity;
-import com.trollologic.pocketgithub.service.NetworkError;
+import com.trollologic.pocketgithub.service.ErrorResponse;
 import com.trollologic.pocketgithub.service.Service;
 import com.trollologic.pocketgithub.service.ServiceCallbacks;
 import com.trollologic.pocketgithub.utils.SharedPrefUtils;
@@ -43,8 +43,8 @@ public class LoginPresenter implements BasePresenter {
             }
 
             @Override
-            public void onError(NetworkError networkError) {
-                view.showFailureMessage(networkError.getMessage());
+            public void onError(ErrorResponse error) {
+                view.showFailureMessage(error.getMessage());
             }
         });
         subscriptions.add(sub);
