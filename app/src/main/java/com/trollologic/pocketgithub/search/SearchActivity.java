@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.trollologic.pocketgithub.R;
@@ -145,12 +146,14 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public void onProgress() {
-
+        if(searchResult.isEmpty()) {
+            binding.progressLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void dismissProgress() {
-
+        binding.progressLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -166,6 +169,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @Override
     public void updateResultList(SearchResults items) {
         searchResult.addAll(Arrays.asList(items.getItems()));
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

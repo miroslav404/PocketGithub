@@ -33,13 +33,23 @@ public class NetworkController {
     }
 
     private static GitHubService service;
+    private static GitHubService authService;
 
 
+    /**
+     * Check if service exists, and create new if not
+     * @param type defining which Interceptor app need, base on user authorization
+     * @param token communication token. Token could be generated from user credentials, or auth_token received from GitHub API
+     * @return
+     */
     public static GitHubService provideCall(CallType type, String token) {
         GitHubService currentService;
         switch (type){
             case CREDENTIALS:
-                currentService = getRetrofit(CallType.CREDENTIALS, token).create(GitHubService.class);
+                if(authService == null) {
+                    authService = getRetrofit(CallType.CREDENTIALS, token).create(GitHubService.class);
+                }
+                currentService = authService;
                 break;
             default:
                 if(service == null){
@@ -81,6 +91,10 @@ public class NetworkController {
         }
     }
 
+    /**
+     * Method used to create Interceptor when user didn't created token for this app
+     * @return
+     */
     @NonNull
     private static Interceptor getInterceptorNoToken() {
         return new Interceptor() {
@@ -99,6 +113,11 @@ public class NetworkController {
         };
     }
 
+    /**
+     * Method used to create Interceptor after user has done authorization via credentials
+     * @param token
+     * @return
+     */
     @NonNull
     private static Interceptor getInterceptorWithToken(final String token) {
         return new Interceptor() {
@@ -118,6 +137,11 @@ public class NetworkController {
         };
     }
 
+    /**
+     * Method fore generating Interceptor based on user credentials
+     * @param basicToken
+     * @return
+     */
     @NonNull
     private static Interceptor getInterceptorWithCredentials(final String basicToken) {
         return new Interceptor() {

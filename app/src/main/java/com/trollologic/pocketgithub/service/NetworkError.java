@@ -13,7 +13,7 @@ import retrofit2.adapter.rxjava.HttpException;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 /**
- * Created by miroslav on 12.12.16..
+ * Created by miroslav on  02.02.17..
  */
 
 public class NetworkError extends Throwable {

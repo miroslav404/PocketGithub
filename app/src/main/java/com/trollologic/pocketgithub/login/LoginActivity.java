@@ -51,12 +51,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void onProgress() {
-        binding.loginProgress.setVisibility(View.VISIBLE);
+        binding.progressLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void dismissProgress() {
-        binding.loginProgress.setVisibility(View.GONE);
+        binding.progressLayout.setVisibility(View.GONE);
 
     }
 

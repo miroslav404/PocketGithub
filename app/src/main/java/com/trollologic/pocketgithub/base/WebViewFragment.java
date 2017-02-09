@@ -48,7 +48,7 @@ public class WebViewFragment extends Fragment {
             public void onProgressChanged(WebView view, int progress) {
 
                 if(progress == 100) {
-                    binding.loginProgress.setVisibility(View.GONE);
+                    binding.progressLayout.setVisibility(View.GONE);
                 }
             }
         });

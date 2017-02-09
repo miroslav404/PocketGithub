@@ -24,6 +24,7 @@
             android:layout_marginRight="@dimen/material_8_dp"
             android:layout_marginTop="@dimen/material_4_dp"
             android:layout_marginBottom="@dimen/material_4_dp"
+            card_view:cardBackgroundColor="@color/card_view_color"
             android:onClick="@{() -> handler.onRepoClick(repo)}"
 
             >
@@ -48,7 +49,6 @@
                         android:layout_marginLeft="@dimen/material_8_dp"
                         android:id="@+id/repo_owner"
                         tools:text="owner"
-                        android:text="@{owner.login}"
                         android:textSize="@dimen/big_text_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -68,17 +68,14 @@
 
                 <TextView
                     android:id="@+id/repo_forks"
-                    tools:text="repo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/repo_watchers"
-                    tools:text="repo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <TextView
                     android:id="@+id/repo_issues"
-                    tools:text="repo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </LinearLayout>

@@ -41,19 +41,19 @@ public class SearchPresenter implements BasePresenter {
                 NetworkController.CallType.NO_AUTH : NetworkController.CallType.TOKEN;
         Subscription sub = Service.getRepositories(callType, query, sort, order, token, page,
                 new ServiceCallbacks.SearchCallback() {
-            @Override
-            public void onSuccess(SearchResults response) {
-                    view.updateResultList(response);
-                if(view.getAdapter() != null) {
-                    view.getAdapter().notifyDataSetChanged();
-                }
-            }
+                    @Override
+                    public void onSuccess(SearchResults response) {
+                        view.updateResultList(response);
+                        view.dismissProgress();
+                    }
 
-            @Override
-            public void onError(NetworkError networkError) {
-                view.showFailureMessage(networkError.getMessage());
-            }
-        });
+                    @Override
+                    public void onError(NetworkError networkError) {
+                        view.showFailureMessage(networkError.getMessage());
+                        view.dismissProgress();
+
+                    }
+                });
         subscriptions.add(sub);
     }
 

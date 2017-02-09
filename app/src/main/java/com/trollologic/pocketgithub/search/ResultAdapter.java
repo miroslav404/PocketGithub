@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder> {
     private final Context context;
-    //private final SearchPresenter presenter;
     private final SearchClickListeners searchClickListener;
     private List<SearchItem> mDataset;
 
@@ -33,15 +32,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
     public ResultAdapter(Context context, List<SearchItem> mDataset, SearchPresenter presenter) {
         this.mDataset = mDataset;
         this.context = context;
-        //this.presenter = presenter;
         searchClickListener = new SearchClickListeners(presenter);
     }
 
@@ -56,10 +49,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         SearchItem item = mDataset.get(position);
+
+        //TODO check why textView is blinking when entity seted via binding method
         holder.binding.setOwner(item.getOwner());
         holder.binding.setRepo(item);
         holder.binding.setHandler(searchClickListener);
-
+        holder.binding.repoOwner.setText(item.getOwner().getLogin());
         Picasso.with(context).load(item.getOwner().getAvatar_url()).into(holder.binding.ownerAvatar);
         holder.binding.repoName.setText(context.getString(R.string.two_strings_with_colon,
                 context.getString(R.string.repository), item.getName()));
