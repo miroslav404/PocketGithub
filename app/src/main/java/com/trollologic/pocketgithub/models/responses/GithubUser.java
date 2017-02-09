@@ -8,19 +8,19 @@ import com.trollologic.pocketgithub.models.Owner;
 
 public class GithubUser extends Owner{
 
-    String name;
-    String company;
-    String blog;
-    String location;
-    String email;
-    String hireable;
-    String bio;
-    int public_repos;
-    int public_gists;
-    int followers;
-    int following;
-    String created_at;
-    String updated_at;
+    private String name;
+    private String company;
+    private String blog;
+    private String location;
+    private String email;
+    private String hireable;
+    private String bio;
+    private int public_repos;
+    private int public_gists;
+    private int followers;
+    private int following;
+    private String created_at;
+    private String updated_at;
 
     public int getFollowing() {
         return following;

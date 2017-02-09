@@ -13,8 +13,6 @@ import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.search.SearchActivity;
 import com.trollologic.pocketgithub.utils.SharedPrefUtils;
 
-import rx.subscriptions.CompositeSubscription;
-
 /**
  * A login screen that offers login via username/password.
  */

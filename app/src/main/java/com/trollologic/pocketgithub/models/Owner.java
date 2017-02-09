@@ -10,22 +10,22 @@ import android.os.Parcelable;
 public class Owner implements Parcelable {
 
 
-    long id;
-    String avatar_url;
-    String login;
-    String gravatar_id;
-    String url;
-    String html_url;
-    String followers_url;
-    String following_url;
-    String gists_url;
-    String starred_url;
-    String subscriptions_url;
-    String organizations_url;
-    String repos_url;
-    String events_url;
-    String type;
-    boolean site_admin;
+    private long id;
+    private String avatar_url;
+    private String login;
+    private String gravatar_id;
+    private String url;
+    private String html_url;
+    private String followers_url;
+    private String following_url;
+    private String gists_url;
+    private String starred_url;
+    private String subscriptions_url;
+    private String organizations_url;
+    private String repos_url;
+    private String events_url;
+    private String type;
+    private boolean site_admin;
 
     public String getGravatar_id() {
         return gravatar_id;

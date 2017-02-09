@@ -1,7 +1,5 @@
 package com.trollologic.pocketgithub.login;
 
-import android.content.Context;
-
 import com.trollologic.pocketgithub.models.User;
 
 

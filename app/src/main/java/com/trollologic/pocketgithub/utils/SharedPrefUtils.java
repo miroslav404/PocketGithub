@@ -10,7 +10,7 @@ import android.preference.PreferenceManager;
 
 public class SharedPrefUtils {
 
-    public static final String AUTH_TOKEN = "AUTH_TOKEN";
+    private static final String AUTH_TOKEN = "AUTH_TOKEN";
     private static SharedPreferences sPrefs;
 
     private static SharedPreferences getPrefs(Context context){

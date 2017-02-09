@@ -23,7 +23,8 @@ import rx.schedulers.Schedulers;
 
 public class Service {
 
-    public static final String TAG = Service.class.getSimpleName();
+    private static final String TAG = Service.class.getSimpleName();
+    private static final String POCKET_GITHUB_AUTHORIZATION_ACCESS_TOKEN_TAG = "PocketGithub_authorization";
 
 
     public static Subscription getRepoContributors(NetworkController.CallType type, String token, String owner, String repo, final ServiceCallbacks.ContributorsCallback callback) {
@@ -127,9 +128,10 @@ public class Service {
                 });
     }
 
-    public static Subscription createAuthorization(NetworkController.CallType type, String token, final ServiceCallbacks.AuthorizationCallback callback) {
+    public static Subscription createAuthorization(String token, final ServiceCallbacks.AuthorizationCallback callback) {
 
-        return NetworkController.provideCall(type, token).createNewAuthorization(new AuthorizationRequest("PocketGithub_authorization"))
+        return NetworkController.provideCall(NetworkController.CallType.CREDENTIALS, token)
+                .createNewAuthorization(new AuthorizationRequest(POCKET_GITHUB_AUTHORIZATION_ACCESS_TOKEN_TAG))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends Authorization>>() {

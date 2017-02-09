@@ -2,14 +2,11 @@ package com.trollologic.pocketgithub.login;
 
 import android.content.Intent;
 
-
 import com.trollologic.pocketgithub.base.BasePresenter;
 import com.trollologic.pocketgithub.models.Owner;
 import com.trollologic.pocketgithub.models.User;
 import com.trollologic.pocketgithub.models.responses.Authorization;
-import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.search.SearchActivity;
-import com.trollologic.pocketgithub.service.NetworkController;
 import com.trollologic.pocketgithub.service.NetworkError;
 import com.trollologic.pocketgithub.service.Service;
 import com.trollologic.pocketgithub.service.ServiceCallbacks;
@@ -25,7 +22,7 @@ import rx.subscriptions.CompositeSubscription;
 public class LoginPresenter implements BasePresenter {
     private static final String TAG = LoginPresenter.class.getSimpleName();
     private final LoginView view;
-    private CompositeSubscription subscriptions;
+    private final CompositeSubscription subscriptions;
 
     public LoginPresenter(LoginView view) {
         this.view = view;
@@ -35,8 +32,8 @@ public class LoginPresenter implements BasePresenter {
     public void login(User user) {
         view.onProgress();
 
-        Subscription sub = Service.createAuthorization(NetworkController.CallType.CREDENTIALS,
-                user.encodeCredentialsForBasicAuthorization(), new ServiceCallbacks.AuthorizationCallback() {
+        Subscription sub = Service.createAuthorization(user.encodeCredentialsForBasicAuthorization(),
+                new ServiceCallbacks.AuthorizationCallback() {
 
             @Override
             public void onSuccess(Authorization response) {

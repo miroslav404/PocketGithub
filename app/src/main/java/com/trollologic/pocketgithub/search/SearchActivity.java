@@ -3,31 +3,21 @@ package com.trollologic.pocketgithub.search;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.RadioGroup;
 
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.base.OnFragmentInteractionListener;
 import com.trollologic.pocketgithub.databinding.ActivitySearchBinding;
-import com.trollologic.pocketgithub.databinding.CustomUserIconActionBarBinding;
 import com.trollologic.pocketgithub.models.SearchItem;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
 import com.trollologic.pocketgithub.models.responses.SearchResults;
@@ -37,8 +27,6 @@ import com.trollologic.pocketgithub.utils.EndlessRecyclerViewScrollListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, com.trollologic.pocketgithub.search.SearchView, OnFragmentInteractionListener {
 
@@ -52,6 +40,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     private ResultAdapter mAdapter;
     private String lastQuery;
     private EndlessRecyclerViewScrollListener paginator;
+    private MenuItem searchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +106,21 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-
+        searchItem = menu.findItem(R.id.search);
         SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
+                (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -186,6 +185,12 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+    }
 
+    @Override
+    public void onHiddenChanged(String tag, boolean visible) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(visible);
+        searchItem.setVisible(!visible);
+        setActionBarLayoutVisibility(!visible);
     }
 }

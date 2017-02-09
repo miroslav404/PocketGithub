@@ -1,7 +1,6 @@
 package com.trollologic.pocketgithub.base;
 
 import com.trollologic.pocketgithub.models.Owner;
-import com.trollologic.pocketgithub.models.responses.GithubUser;
 
 /**
  * Created by miroslav on 05.01.17..

@@ -14,7 +14,7 @@ public class AuthorizationRequest {
     PARAM:fingerprint	string	A unique string to distinguish an authorization from others created for the same client ID and user.
      */
 
-    String note;
+    private String note;
 
     public AuthorizationRequest(String note){
         this.note = note;

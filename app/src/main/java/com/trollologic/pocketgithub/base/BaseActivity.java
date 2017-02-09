@@ -17,28 +17,39 @@ import com.trollologic.pocketgithub.models.responses.GithubUser;
 
 public class BaseActivity extends AppCompatActivity {
 
-    public void showSnackBar(View parentLayout, String message){
+    private CustomUserIconActionBarBinding binding;
+
+    protected void showSnackBar(View parentLayout, String message){
         Snackbar snackbar = Snackbar
                 .make(parentLayout, message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
-    public void updateUserIcon(BasePresenter presenter, GithubUser user) {
+    protected void updateUserIcon(BasePresenter presenter, GithubUser user) {
         BaseClickListeners handler = new BaseClickListeners(presenter);
         View actionBarLayout = getLayoutInflater().inflate(R.layout.custom_user_icon_action_bar, null);
-        CustomUserIconActionBarBinding binding = DataBindingUtil.bind(actionBarLayout);
+        binding = DataBindingUtil.bind(actionBarLayout);
 
         binding.setUser(user);
         binding.setHandler(handler);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setCustomView(binding.getRoot());
+        if(actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setCustomView(binding.getRoot());
+        }
 
         Picasso.with(this).load(user.getAvatar_url())
                 .placeholder(R.drawable.ic_fingerprint_black_24dp)
                 .into(binding.actionBarIcon);
+    }
+
+
+    protected void setActionBarLayoutVisibility(boolean visibility){
+        if(binding != null){
+            binding.actionBarIcon.setVisibility(visibility ? View.VISIBLE : View.GONE);
+        }
     }
 }

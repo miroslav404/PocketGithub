@@ -8,8 +8,8 @@ import com.trollologic.pocketgithub.models.SearchItem;
 
 public class SearchResults {
 
-    int total_count;
-    SearchItem[] items;
+    private int total_count;
+    private SearchItem[] items;
 
     public int getTotal_count() {
         return total_count;

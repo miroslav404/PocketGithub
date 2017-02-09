@@ -1,8 +1,6 @@
 package com.trollologic.pocketgithub.search;
 
-import com.trollologic.pocketgithub.login.LoginPresenter;
 import com.trollologic.pocketgithub.models.SearchItem;
-import com.trollologic.pocketgithub.models.User;
 
 
 /**

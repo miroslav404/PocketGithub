@@ -3,10 +3,7 @@ package com.trollologic.pocketgithub.repo_details;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.net.Uri;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -27,15 +24,19 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repository = (SearchItem)getIntent().getParcelableExtra(Constants.REPO_DETAILS);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        repository = getIntent().getParcelableExtra(Constants.REPO_DETAILS);
         renderView();
     }
 
     private void renderView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_repo_details);
+        updateView();
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    private void updateView() {
         binding.setRepository(repository);
         binding.setHandler(new RepoDetailsClickListeners(new RepoDetailsPresenter(this)));
         Picasso.with(this).load(repository.getOwner().getAvatar_url())
@@ -50,7 +51,6 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
                 getString(R.string.default_branch), ValueHelper.isValid(this, repository.getDefault_branch())));
         binding.description.setText(getString(R.string.two_strings_with_colon,
                 getString(R.string.description), ValueHelper.isValid(this, repository.getDescription())));
-
     }
 
     @Override
@@ -96,5 +96,9 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onHiddenChanged(String tag, boolean visible) {
     }
 }

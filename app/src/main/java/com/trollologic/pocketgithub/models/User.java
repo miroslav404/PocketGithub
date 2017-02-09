@@ -11,10 +11,10 @@ import android.util.Base64;
 
 public class User {
 
-    public static final String BASIC_TOKEN_PREFIX = "Basic ";
+    private static final String BASIC_TOKEN_PREFIX = "Basic ";
 
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
 
     public String getUsername() {

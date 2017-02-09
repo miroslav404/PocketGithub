@@ -3,10 +3,8 @@ package com.trollologic.pocketgithub.base;
 import android.app.Fragment;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +13,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.trollologic.pocketgithub.R;
-import com.trollologic.pocketgithub.databinding.FragmentProfileBinding;
-import com.trollologic.pocketgithub.databinding.FragmentRepoWebviewBinding;
+import com.trollologic.pocketgithub.databinding.FragmentWebviewBinding;
 
 /**
  * Created by miroslav on 08.02.17..
  */
 
-public class UserProfileFragment extends Fragment {
+public class WebViewFragment extends Fragment {
 
-    private static final String TAG = UserProfileFragment.class.getSimpleName();
+    private static final String TAG = WebViewFragment.class.getSimpleName();
     private static final String URL_KEY = "URL";
     private OnFragmentInteractionListener mListener;
-    FragmentProfileBinding binding;
+    private FragmentWebviewBinding binding;
 
-    public static UserProfileFragment newInstance(String url){
-        UserProfileFragment fragment = new UserProfileFragment();
+    public static WebViewFragment newInstance(String url){
+        WebViewFragment fragment = new WebViewFragment();
         Bundle args = new Bundle();
         args.putString(URL_KEY,url);
         fragment.setArguments(args);
@@ -44,7 +41,7 @@ public class UserProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_webview, container, false);
         WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         binding.webview.setWebChromeClient(new WebChromeClient() {
@@ -56,8 +53,15 @@ public class UserProfileFragment extends Fragment {
             }
         });
         binding.webview.loadUrl(getArguments().getString(URL_KEY));
+        mListener.onHiddenChanged(TAG, true);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mListener.onHiddenChanged(TAG, false);
     }
 
     @Override

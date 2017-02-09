@@ -6,8 +6,8 @@ package com.trollologic.pocketgithub.models.responses;
 
 public class Contributor {
 
-    String login;
-    int contributions;
+    private String login;
+    private int contributions;
 
     @Override
     public String toString() {

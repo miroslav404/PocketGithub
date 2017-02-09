@@ -1,9 +1,9 @@
 package com.trollologic.pocketgithub.service;
 
 import android.support.annotation.NonNull;
-import android.support.compat.BuildConfig;
 
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,11 +20,13 @@ import rx.schedulers.Schedulers;
 
 public class NetworkController {
 
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String APPLICATION_JSON = "application/json";
-    public static final String PRAGMA = "Pragma";
-    public static final String CACHE_CONTROL = "Cache-Control";
-    public static final String AUTHORIZATION = "Authorization";
+    private static final String CONTENT_TYPE = "Content-Type";
+    private static final String APPLICATION_JSON = "application/json";
+    private static final String PRAGMA = "Pragma";
+    private static final String CACHE_CONTROL = "Cache-Control";
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String TOKEN = "token ";
+    private static final String MAX_AGE_D = "max-age=%d";
 
     public enum CallType{
         TOKEN, CREDENTIALS, NO_AUTH
@@ -107,8 +109,8 @@ public class NetworkController {
                 Request request = original.newBuilder()
                         .header(CONTENT_TYPE, APPLICATION_JSON)
                         .removeHeader(PRAGMA)
-                        .addHeader(AUTHORIZATION, "token "+ token)
-                        .header(CACHE_CONTROL, String.format("max-age=%d", com.trollologic.pocketgithub.BuildConfig.CACHETIME))
+                        .addHeader(AUTHORIZATION, TOKEN + token)
+                        .header(CACHE_CONTROL, String.format(MAX_AGE_D, com.trollologic.pocketgithub.BuildConfig.CACHETIME))
                         .build();
 
                 return chain.proceed(request);
