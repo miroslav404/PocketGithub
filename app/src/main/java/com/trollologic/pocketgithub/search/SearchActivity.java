@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.trollologic.pocketgithub.PocketGithubApp;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.base.OnFragmentInteractionListener;
@@ -42,6 +43,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     private String lastQuery;
     private EndlessRecyclerViewScrollListener paginator;
     private MenuItem searchItem;
+    private boolean newSearchInProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,12 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         prepareAdapter();
         prepareFilterListener();
     }
+
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        PocketGithubApp.instance.mustDie(this);
+//    }
 
     private void prepareFilterListener() {
         binding.stars.setChecked(true);
@@ -133,7 +141,8 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     private void makeNewSearch() {
         if(!TextUtils.isEmpty(lastQuery)) {
-            searchResult.clear();
+            newSearchInProgress= true;
+//            searchResult.clear();
             paginator.resetState();
             presenter.search(lastQuery, sort, order, START_PAGE);
         }
@@ -168,6 +177,10 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public void updateResultList(SearchResults items) {
+        if(newSearchInProgress){
+            searchResult.clear();
+            newSearchInProgress = false;
+        }
         searchResult.addAll(Arrays.asList(items.getItems()));
         mAdapter.notifyDataSetChanged();
     }

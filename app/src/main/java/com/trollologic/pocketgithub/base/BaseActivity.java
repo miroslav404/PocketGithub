@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
+import com.trollologic.pocketgithub.PocketGithubApp;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.databinding.CustomUserIconActionBarBinding;
 import com.trollologic.pocketgithub.models.responses.GithubUser;
@@ -52,4 +53,5 @@ public class BaseActivity extends AppCompatActivity {
             binding.actionBarIcon.setVisibility(visibility ? View.VISIBLE : View.GONE);
         }
     }
+
 }

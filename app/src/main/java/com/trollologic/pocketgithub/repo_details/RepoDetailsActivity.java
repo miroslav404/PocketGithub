@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.squareup.picasso.Picasso;
+import com.trollologic.pocketgithub.PocketGithubApp;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.base.OnFragmentInteractionListener;
@@ -52,6 +53,12 @@ public class RepoDetailsActivity extends BaseActivity implements RepoDetailsView
         binding.description.setText(getString(R.string.two_strings_with_colon,
                 getString(R.string.description), ValueHelper.isValid(this, repository.getDescription())));
     }
+
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        PocketGithubApp.instance.mustDie(this);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -1,5 +1,6 @@
 package com.trollologic.pocketgithub.base;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -71,6 +72,18 @@ public class WebViewFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

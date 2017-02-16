@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.trollologic.pocketgithub.PocketGithubApp;
 import com.trollologic.pocketgithub.R;
 import com.trollologic.pocketgithub.base.BaseActivity;
 import com.trollologic.pocketgithub.databinding.ActivityLoginBinding;
@@ -75,5 +76,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void finishActivity() {
         finish();
     }
+
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        PocketGithubApp.instance.mustDie(this);
+//    }
 }
 
